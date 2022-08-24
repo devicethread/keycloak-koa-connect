@@ -14,6 +14,7 @@ import GrantAttacher from './middleware/grant-attacher';
 import Logout from './middleware/logout';
 // import PostAuth from './middleware/post-auth';
 import Protect from './middleware/protect';
+import Enforcer from './middleware/enforcer';
 import Setup from './middleware/setup';
 
 import IConfig from './interface/iconfig';
@@ -122,7 +123,10 @@ class Keycloak {
   public protect(spec?: any) {
     return Protect(this, spec);
   }
-
+  public enforcer (permissions, config) {
+    return new Enforcer(this, config).enforce(permissions)
+  }
+  
   public authenticated(ctx) {
     // no-op
   }
